@@ -10,7 +10,6 @@ The modern, coherent on-ramp is in the root `rdn/` package:
 
 See:
 - `README.md` (architecture + quickstart)
-- `CEO_PLAN_INTEGRATED.md` (living plan + GSTACK review)
 - `rdn/` source + `bootstrap.py` / `install.py`
 
 This directory is kept only for historical reference. It will be removed in a future cleanup. All new development, agents, and operators must use the `rdn` harness.

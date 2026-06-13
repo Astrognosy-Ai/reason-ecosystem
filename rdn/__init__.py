@@ -1,20 +1,20 @@
 """
-rdn — The Coherent Reason Substrate (local + full warf Xchange stack)
+rdn — The Coherent reason:// Substrate
 
-One clean package that unifies:
-- Local-first handoffs & repo memory (the original ReasonRDN strengths)
-- Auto-deposit to the warf Xchange broker (warf.astrognosy.com on Railway)
-- Real PCF scoring in astragnostic-api (AWS ECS — the domain-agnostic engine)
-- Clean resolution from the reason:// Xport registry (reason.astrognosy.com)
+One clean, local-first package that unifies:
+- Persistent handoffs and project memory with a simple API
+- Optional participation in the public reason:// Xchange network
+- Protected structural fingerprints (local) + real scoring in the reference engine
+- Clean resolution from the reason:// Xport registry
 
-The simplest coherent API (this is what agents and humans should reach for):
+The simplest coherent API agents and humans should reach for:
 
     import rdn as reason
     reason.remember("Fixed the race with structural correlation", tags=["infra"])
     art = reason.resolve("reason://ops/ecs/failures")
-    result = reason.xchange_arbitrate("best approach?", packages=[...])
 
-PCF math is fully protected (safe local fingerprints here + the real engine lives in astragnostic-api).
+The advanced PCF mathematics and quality gating live in the protected reference engine.
+This package is the open, IP-safe on-ramp to the reason:// ecosystem.
 """
 
 from __future__ import annotations

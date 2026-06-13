@@ -4,7 +4,7 @@ Tiny bootstrap for reason-rdn — the coherent agnostic harness.
 
 Run this one-liner (no prior install needed):
 
-    python -c "$(curl -fsSL https://raw.githubusercontent.com/Astrognosy/reason-ecosystem/main/bootstrap.py)"
+    python -c "$(curl -fsSL https://raw.githubusercontent.com/Astrognosy-Ai/reason-ecosystem/main/bootstrap.py)"
 
 Or save it and run:
     python bootstrap.py
@@ -24,7 +24,7 @@ After this, agents get:
 
 This is the on-ramp to the warf reasoning substrate. High-quality handoffs you create here can eventually become callable deterministic artifacts in the network.
 
-(Shhh — the long game is turning inference into resolution.)
+The long-term vision: high-quality, addressable reasoning artifacts make inference feel like resolution.
 """
 
 import os
@@ -74,8 +74,8 @@ The one-liner you (and your agents) will love:
     print("    print(reason.harness_metrics())   # real token savings + suggestions")
     print("\nWhen you're ready to feed the flywheel (auto-deposit to Xchange):")
     print("    REASON_USE_XCHANGE=1 rdn start")
-    print("\n(Shhh — every high-quality artifact you create here helps turn")
-    print(" inference into resolution across the network. The meganode grows with every share.)")
+    print("\nEvery high-quality artifact you create here helps turn")
+    print(" inference into resolution across the reason:// network.")
     print("=" * 72 + "\n")
 
     # Optional auto-launch the dashboard for instant wow

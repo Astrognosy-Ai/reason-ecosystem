@@ -1,310 +1,274 @@
-# ReasonRDN — The Shared Memory Substrate for the Agentic Era
+# reason-rdn — reason:// The Shared Memory Substrate for the Agentic Era
 
-**The easy, production-grade on-ramp to the full Astrognosy WARF / reason:// ecosystem.**
+**Local-first coherent memory with seamless participation in the global reason:// network.**
 
-One memory layer that makes every agent dramatically more effective with persistent, high-signal context — while the proprietary Positional Correlation Fields (PCF) mathematics stay completely protected inside the astragnostic engine.
-
-### How the real stack works (important)
-
-- **Local / this package**: reason-ecosystem (what you're looking at). Local private node, unified client, handoffs, git sync, GUI, MCP, `rdn` CLI. Perfect for personal + operator use.
-- **warf Xchange reference broker** (https://warf.astrognosy.com on Railway, Postgres lives here): The public front door for deposits, shares, and arbitration.
-- **astragnostic-api** (AWS ECS): The domain-agnostic PCF engine (pride and joy). The broker forwards scoring here (service-to-service with secret).
-- **Xport / reason:// registry** (https://reason.astrognosy.com): Where promoted, high-kappa artifacts land for easy public resolution by any agent.
-- After Xchange + Xtend, winners promote to reason:// on the Xport.
-
-When you do `install.py --xchange` or set `REASON_USE_XCHANGE=1`:
-- Your handoffs and `remember` calls go to the warf Xchange broker (warf.astrognosy.com).
-- The broker routes scoring to astragnostic-api (AWS).
-- High-value results can promote to the reason:// Xport registry (reason.astrognosy.com).
-
-This package is deliberately the **simple, safe, local + bridge** layer. The advanced non-invertible transfer and full engine live in the reference monowarfo/warf implementations and the reason_py SDK. Perfect separation for IP protection.
-
-**Why this can be a 200k-star project:**
-- Local-first and private by default
-- **Immediately useful** to any coding agent with almost zero setup (tell your agent "install reason-ecosystem --xchange")
-- Protected PCF fingerprints + reason:// addressing
-- Seamless federation from personal memory to collective intelligence on the Xchange
-- Works for human operators (GUI + CLI) and autonomous agents via MCP
-- Turns every commit, insight, and decision into something any future agent (or human) in the network can resolve
-
-The core IP (PCF math) is deliberately not exposed. You only ever see safe outputs (`structural_hash`, content, provenance-style metadata).
-
-## Quick Start (agents or humans)
-
-```powershell
-# Standard (local private node + full power)
-py -3.13 install.py
-
-# Auto-deposit reasoning artifacts to the central warf Xchange
-py -3.13 install.py --xchange
-```
-
-Tell any agent: **"install reason-ecosystem"** or **"install reason-ecosystem --xchange"**.
-
-After install you get:
-- The `rdn` CLI (`rdn remember`, `rdn recall`, `rdn --xchange status`, ...)
-- MCP tools auto-registered for Claude Desktop / many other agents
-- Easy local node or direct use of https://warf.astrognosy.com for ecosystem sharing
-- Unified client that prefers the Xchange (or your node_url) with local SQLite mirror/fallback
-
-See `install.py --help` and `rdn --help`. Set `REASON_USE_XCHANGE=1` anywhere for Xchange mode.
-
-### Hero "Try Immediately" Path (cross-platform, reliable)
+One import. Persistent high-signal context for humans *and* agents. Safe local fingerprints. Real token savings. A beautiful dashboard. And a clean path to the public Xchange where the best artifacts rise to the top.
 
 ```powershell
 pip install 'reason-rdn[full]' && rdn start
 ```
 
-This is the primary, reliable way to "start using rdn". It gives you the full coherent harness experience instantly:
-- The badass dashboard with live metrics (estimated token savings, velocity, ship rate, vibe stars)
-- Workflow suggestions
-- Xchange mode for feeding the collective (broker → astragnostic-api scoring → reason Xport)
-- Full CLI, MCP tools, etc.
-
 Tell any agent: **"install reason-rdn[full] and run rdn start"**.
 
-See `install.py --help` and `rdn --help`. Set `REASON_USE_XCHANGE=1` for Xchange.
+---
 
-### Windows One-Stop .exe (secondary, simplified for reliability)
+## Why reason:// exists
 
-The .exe was for simplicity, but bundling the full dashboard is difficult (as seen in build warnings and connection issues). Per the plan, we simplified it.
+Every serious agentic workflow eventually hits the same wall: agents are stateless. They re-invent, re-debug, and re-decide the same things over and over.
 
-Build:
+`reason://` gives you **addressable, high-signal memory**:
+
+- Deposit once with a stable `reason://` address.
+- Later (same agent, different agent, next month) resolve it and pick up where the best prior reasoning left off.
+- Local by default. Federated when you want it. Public canonicals when the network promotes a winner.
+
+This package (`rdn`) is the **open, production-grade on-ramp** — the delightful local layer + bridge that makes participating in (and benefiting from) the larger reason:// ecosystem trivial and rewarding.
+
+The advanced mathematics (Positional Correlation Fields / PCF and quality promotion) stay protected in the reference engine. You only ever see safe, useful outputs.
+
+---
+
+## Hero Quick Start
+
+### The one command everyone should run
+
 ```powershell
-python -m pip install pyinstaller pystray Pillow
+pip install 'reason-rdn[full]' && rdn start
+```
+
+This gives you immediately:
+
+- The full **harness dashboard** (metrics, deposit, resolve, prefix explorer)
+- Real **token savings, velocity, ship rate, vibe stars**
+- Workflow suggestions
+- Xchange controls (feed the collective when you want)
+- Full `rdn` CLI + MCP tools for agents
+
+### CLI examples
+
+```bash
+rdn remember "Fixed the critical auth race under load" --tags infra,auth,pcf
+rdn recall "auth race"
+rdn resolve "reason://infra/auth/race-detection"
+rdn --xchange status          # see your impact + the network
+rdn list reason://infra       # browse everything under a prefix
+```
+
+### For agents (Claude, Grok, Cursor, etc.)
+
+Agents get powerful tools automatically via MCP:
+
+```python
+import rdn as reason
+
+reason.remember(
+    "The canonical solution for this class of outage",
+    tags=["infra", "outage", "ecs"],
+    reason_address="reason://ops/ecs/failures"   # permanent prefix is handled for you
+)
+
+art = reason.resolve("reason://ops/ecs/failures")
+print(art)
+```
+
+Just say in your agent prompt: *"Use the reason-rdn MCP tools to remember and resolve via reason:// URIs."*
+
+---
+
+## Features
+
+- **Beautiful Streamlit harness dashboard** — metrics that actually mean something, tree-view prefix explorer, recent URIs with one-click copy, deposit forms with permanent `reason://` prefix, Xchange toggle.
+- **First-class CLI** (`rdn`) — remember, recall, resolve, list prefixes, status, xchange flows, start the harness.
+- **MCP server** — agents get `remember`, `resolve`, `status`, harness metrics, etc. out of the box.
+- **reason:// URIs + powerful browsing** — `list_prefix("reason://infra")` returns everything under it. The dashboard renders it as a beautiful collapsible tree.
+- **Real token accounting** — pass `tokens_used` on remember and `tokens_saved` on resolve. See your personal velocity and savings from network winners.
+- **Xchange mode** (opt-in) — high-signal artifacts you create can flow to the public broker, get scored by the protected engine, and (if they win) become the canonical for that `reason://` URI on the Xport registry.
+- **Local private node always works** — 8765 by default. Full offline capability + SQLite mirror. The dashboard lives at 8501.
+- **One coherent Python surface** — `import rdn as reason`. Everything important is available at the top level.
+- **Simplified Windows one-stop** — `package.py` produces `rdn.exe` + portable zip (CLI + local node + tray). The rich dashboard is the reliable pip path.
+
+---
+
+## Architecture (Public Reference Network)
+
+```
+Your code / CLI / Dashboard / Agents (MCP)
+                  │
+                  ▼
+Local private node (this package, port 8765)
+   • Always available
+   • Local SQLite fallback/mirror
+   • Safe structural fingerprints (_pcf)
+                  │
+                  │  (when Xchange enabled)
+                  ▼
+Public Xchange Broker  (warf.astrognosy.com)
+                  │
+                  │  service-to-service scoring
+                  ▼
+astragnostic-api (api.pcfic.com)   ← Protected PCF engine + Xtend promotion
+                  │
+                  │  (winners only)
+                  ▼
+Xport / reason:// Registry  (reason.astrognosy.com + xport.astrognosy.com)
+                  │
+                  └─► Public canonical resolution for any agent
+```
+
+**This repo = the open on-ramp.**  
+The heavy protected engine and promotion logic live in the reference network. Your high-quality local artifacts can compete there when you flip on Xchange.
+
+---
+
+## The reason:// URI
+
+This is the killer feature.
+
+```text
+reason://<authority>/<path>
+```
+
+Examples:
+
+- `reason://ops/ecs/failures`
+- `reason://infra/auth/race-detection`
+- `reason://research/positional-correlation`
+
+**Permanent prefix in the UI/CLI** — you never have to type `reason://` every time.
+
+**Prefix browsing is first-class** — incomplete URIs bring back everything below them (both locally and from the network when Xchange is on). The dashboard shows a live tree with folders and copy buttons.
+
+Once an artifact is promoted through Xchange + the quality gate, resolving the URI gives you the current best-known reasoning instead of forcing the agent to rediscover it.
+
+---
+
+## Token Economics & the Flywheel (IP-Safe)
+
+When you use `tokens_used=...` on remember and see `tokens_saved=...` on resolve, you're seeing the flywheel in action:
+
+1. You create a high-signal artifact and give it a precise `reason://` address.
+2. You (optionally) share it via Xchange.
+3. The network scores it. Strong artifacts get promoted.
+4. Later, you or anyone else resolves the same URI and the system tells you how many tokens you *didn't* have to spend.
+
+The dashboard surfaces **velocity**, **ship rate**, and **vibe stars** so the value is visible in seconds.
+
+This is deliberately designed so that contributing high-quality memory is personally rewarding.
+
+---
+
+## Installation
+
+### Recommended (cross-platform, full experience)
+
+```powershell
+pip install 'reason-rdn[full]'
+rdn start
+```
+
+`[full]` pulls in the dashboard (streamlit + plotly) and MCP support.
+
+### Windows "download and run" (simplified)
+
+```powershell
 python package.py
-# or py -3.13 install.py --build
+# produces dist/rdn.exe + rdn-portable.zip
 ```
 
-Result: dist\rdn.exe and rdn-portable.zip
+The executable gives you the node + full CLI + system tray. For the rich metrics dashboard, use the pip path above.
 
-What the EXE delivers (double-click or `rdn.exe` / `rdn.exe start`):
-- Excitement banner
-- Auto-starts local private node (8765) unless XCHANGE mode
-- System tray icon for control (Open Dashboard, Start/Restart Node, Start/Stop MCP for agents, Quit)
-- Full CLI (rdn.exe remember "..." etc.)
+### From source (development)
 
-For the full badass metrics dashboard (the "one stop" visual experience), use the hero pip path above (it runs the Streamlit UI reliably because Python is present).
-
-The EXE is a solid Windows "download and run" channel for the node + CLI + tray, without the bundling complexity of the rich UI.
-
-This respects the simplicity goal while keeping the EXE useful.
-
-### Ports (to avoid confusion)
-- Node (memory API / "reason db" backend): http://127.0.0.1:8765
-- Dashboard (the rich UI/harness with metrics, suggestions, Xchange view): http://localhost:8501 (Streamlit default)
-
-The dashboard is the visual "one stop" for the harness. The node is the API.
-
-### Timeline Note
-AI dev velocity is insane. We ship in weeks/sprints, not 12 months. The hero path and unblocked EXE are priority for "try immediately". Harness expansions (real token accounting, flywheel suggestions) follow quickly.
-
-## Architecture at a Glance
-
-```
-Your agents / GUI / CLI / handoffs
-          │
-          ▼
-Local private node  (this repo)  ──►  Local SQLite fallback
-          │
-          │  (when Xchange mode enabled)
-          ▼
-Railway Xchange Broker  (warf.astrognosy.com + Postgres)
-          │
-          │  service-to-service
-          ▼
-astragnostic-api (api.pcfic.com on AWS ECS)  ←── Grand master (PCF + Xtend scoring vs current placeholder + corpus)
-          │   (serves WARF + Pacific workloads)
-          ▼  (if good)
-Xport / reason:// registry (reason.astrognosy.com + xport.astrognosy.com)  ←── Public canonical resolution
+```bash
+pip install -e '.[full]'
 ```
 
-This repo = the delightful local + agent entry point that can feed the full engine.
-
-The heavy PCF lifting and multi-implementation engine lives in astragnostic-api (never exposed in this public surface).
-
-## The Broader Ecosystem (context from the full stack)
-
-- **reason-ecosystem** (here): Easy install, local RDN, MCP, CLI, auto Xchange bridge.
-- **warf/**: Public IP-safe mirror + docs of the Xchange reference.
-- **monowarfo/**: Live reference node/broker implementation.
-- **reason_py** (SDKs in warf/monowarfo): The advanced ReasonClient + WARFClient for full arbitration/xfer flows.
-- **astragnostic-api** (api.pcfic.com on AWS ECS): The grand master engine. Runs PCF + Xtend (quality gate + promotion to canonical for a reason:// URI). Serves workloads for both WARF and Pacific products. The broker is the public proxy to it.
-- Non-public branches: full non-invertible reasoning transfer (Xfer) and complete protocol.
-
-Use this package for day-to-day. Point it at the Xchange when you want your reasoning to participate in the collective network.
-
-## Architecture (simplified)
-
-### **Three-layer system:**
-
-```
-┌─────────────────────────────────────────────────────┐
-│  Operator (Desktop)         │  Agents (Claude/Grok) │
-│  ReasonRDN GUI              │  warf-mcp tools       │
-│  deposit/recall via GUI     │  remember/recall      │
-└──────────────┬──────────────────────┬───────────────┘
-               │                      │
-               └──────────────┬───────┘
-                              │
-        ┌─────────────────────▼──────────────┐
-        │  HTTP Memory API                   │
-        │  /api/remember                     │
-        │  /api/recall                       │
-        │  /api/resolve                      │
-        │  (rdn/node/server.py)              │
-        └─────────────────────┬──────────────┘
-                              │
-        ┌─────────────────────▼──────────────┐
-        │  Local SQLite DB                   │
-        │  ~/.reason-rdn/private-node/       │
-        │  warf-node.db                      │
-        └───────────────────────────────────┘
-```
-
-### **Shared memory model:**
-
-- **Single HTTP node** (local or remote) is the source of truth
-- **Both operator and agents** talk to same node via HTTP
-- **Content stored** in metadata_json (artifact_id, address, deposited_at, audit_hash)
-- **Full audit chain** via address (reason://project/handoff/task-slug) and audit_hash
+See `install.py` and `bootstrap.py` for one-liner bootstrap options.
 
 ---
 
-## User Guide
+## Xchange & Configuration
 
-### **Operator Flow (ReasonRDN GUI)**
+Turn on participation in the public network:
 
-1. **Install:**
-   ```powershell
-   py -3.13 install_reason_ecosystem.py
-   ```
+```bash
+REASON_USE_XCHANGE=1 rdn start
+# or
+rdn --xchange remember "..." --reason-address "reason://my-project/..."
+```
 
-2. **Start GUI:**
-   ```
-   dist\ReasonRDN.exe
-   ```
-   Or:
-   ```powershell
-   py -3.13 rdn\gui\app.py
-   ```
+Key environment variables:
 
-3. **In the GUI:**
-   - **Create Private Node** → Starts embedded HTTP server on localhost:8765 (auto-detected port)
-   - **Install Hooks** → Installs git post-commit hooks in all discovered repos
-   - **Deposit** → Manually push repo state to memory (tags: repo, branch, files)
-   - **Recall** → Search all stored memories; query by keyword
-   - **Stop Node** → Clean shutdown
+- `REASON_USE_XCHANGE=1` — default to the public warf broker
+- `REASON_NODE_URL=...` — point at any node (local or remote)
+- Token accounting is passed explicitly in the API (`tokens_used`, `tokens_saved`)
 
-### **Agent Flow (Claude/Grok via warf-mcp)**
-
-1. **Install:**
-   ```powershell
-   py -3.13 install_reason_ecosystem.py --warf-only
-   ```
-
-2. **Use tools in Claude:**
-   ```
-   @use_mcp_tool reason-ecosystem remember
-   content: "The ReasonRDN node is running on port 8765"
-   tags: ["status", "infrastructure"]
-   project: "astrognosy"
-   ```
-
-3. **Recall from memory:**
-   ```
-   @use_mcp_tool reason-ecosystem recall
-   query: "ReasonRDN infrastructure"
-   limit: 5
-   ```
-
-4. **Resolve specific artifact:**
-   ```
-   @use_mcp_tool reason-ecosystem resolve
-   address: "reason://astrognosy/handoff/abc12345"
-   ```
+All data lives under `~/.reason-rdn/`.
 
 ---
 
-## Configuration
+## Toward IETF Standardization
 
-### **.reason-ecosystem.cfg** (auto-created at ~/.reason-ecosystem.cfg)
+We believe `reason://` addressing + structured high-signal memory artifacts are a missing primitive for the agentic internet.
 
-```json
-{
-  "version": "1.0",
-  "node_url": "http://127.0.0.1:8765",
-  "port": 8765,
-  "private_storage": "C:\\Users\\<user>\\.reason-rdn\\private-node",
-  "memory_db": "C:\\Users\\<user>\\.reason-rdn\\private-node\\warf-node.db",
-  "mcp_enabled": true
-}
-```
+Exploratory draft work lives in the [`ietf-drafts/`](./ietf-drafts) directory:
 
-### **Override node URL (for remote/shared):**
+- `draft-reason-uri-00.md` — early skeleton for the URI scheme itself (syntax, semantics, resolution, security considerations, IANA registration path).
+
+These are **not yet submitted** IETF drafts. They are public working notes so the direction is visible early and the community can help shape them.
+
+If you're interested in URI schemes, provenance, or agent memory protocols, we would love your input.
+
+---
+
+## Vision
+
+Inference should feel like resolution when the problem has been solved well before.
+
+`reason-rdn` + the reason:// network is how we get there — one high-quality, addressable artifact at a time.
+
+Local-first and private by default.  
+Federated and public when you choose.  
+Protected mathematics where it matters.  
+Visible economics so humans and agents actually use it.
+
+---
+
+## Status & Roadmap
+
+- ✅ Coherent top-level API (`import rdn as reason`)
+- ✅ Real token accounting + HarnessMetrics (velocity, ship rate, vibe stars)
+- ✅ Prefix browsing + tree explorer + recent URIs with copy
+- ✅ Xchange bridge + public reference endpoints
+- ✅ MCP server for agents
+- ✅ Beautiful dashboard + polished CLI
+- ✅ Simplified reliable Windows channel
+- 🚀 IETF draft skeletons published (public branch)
+- Ongoing: more flywheel-aware suggestions, richer provenance, broader agent integrations
+
+**License:** MIT (see `LICENSE`)
+
+This package is the open surface. The deeper non-invertible transfer protocols and full engine implementations live in the reference closed components.
+
+---
+
+## Contributing
+
+Issues and PRs are welcome on the public branch.
+
+When opening issues, please include:
+- `rdn --version`
+- Whether you are using Xchange mode
+- A minimal reproduction for bugs
+
+For larger discussions about the URI scheme or protocol, the `ietf-drafts/` notes are the right place to start.
+
+---
+
+**The memory layer for the agentic web starts here.**
 
 ```powershell
-py -3.13 install_reason_ecosystem.py --node-url https://my-shared-warf.railway.app
+pip install 'reason-rdn[full]' && rdn start
 ```
 
----
-
-## One-Liner for Agents
-
-**Simplest command for operators to share:**
-
-```
-py -3.13 install_reason_ecosystem.py --no-service
-```
-
-**For agents in Claude/Grok prompts:**
-
-```
-"install reason-ecosystem" → operator runs the above one-liner
-```
-
-**Result:** ReasonRDN + warf-mcp installed, shared memory ready, operator desktop running, agents can remember/recall.
-
----
-
-## Files
-
-| File | Purpose |
-|------|---------|
-| install_reason_ecosystem.py | Unified installer for both ReasonRDN + warf-mcp |
-| RDN/rdn/node/server.py | Embedded HTTP memory node |
-| RDN/rdn/gui/app.py | Desktop operator console |
-| wharf/warf_ecosystem_client.py | HTTP client for memory API |
-| wharf/warf_mcp_server.py | MCP server for Claude/Grok/Codex |
-| ~/.reason-ecosystem.cfg | Unified config (auto-created) |
-
----
-
-**Status:** ✅ Production-grade direction. IP-protected structural fingerprints, unified client, auto-discovery, secure-by-default node, excellent MCP surface, and a friendly `rdn` CLI.
-
-The goal is to become the default memory layer that every serious agentic workflow uses.
-
-## Quick Start (designed for agents too)
-
-```powershell
-# One line (human or agent)
-py -3.13 install.py
-
-# Or target the warf Xchange for ecosystem-wide sharing of reasoning artifacts:
-py -3.13 install.py --xchange
-
-# Tell any agent: "install reason-ecosystem" or "install reason-ecosystem --xchange"
-```
-
-After install:
-- `rdn remember "Fixed the critical auth race" --tags security,pcf`
-- `rdn recall "auth race"`
-- `rdn --xchange recall "handoff"`   # explicitly hit the central Xchange
-- `rdn status`
-- Agents automatically get powerful `remember`/`recall`/`resolve` tools (registered in Claude Desktop, etc.)
-
-To use the Xchange from code/agents without installer:
-- Set `REASON_USE_XCHANGE=1` (or `REASON_NODE_URL=https://warf.astrognosy.com`)
-- For authenticated Xchange access: also set `REASON_RDN_TOKEN=...`
-
-See `install.py` for flags and `rdn --help`.
+Then give your agents (and yourself) the superpower of actually remembering.

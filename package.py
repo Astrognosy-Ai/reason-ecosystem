@@ -27,7 +27,7 @@ Output:
     dist/rdn.exe
     dist/rdn-portable.zip
 
-See CEO_PLAN_INTEGRATED.md and README.md for architecture and hero path.
+See README.md for architecture, quickstarts, and the public reason:// network.
 """
 
 import subprocess
