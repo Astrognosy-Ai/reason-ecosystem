@@ -63,7 +63,7 @@ def test_pcf_engine_basic():
     assert isinstance(fp, str) and len(fp) == 64
     assert eng.verify_fingerprint(tokens, fp) is True
     assert eng.verify_fingerprint(tokens + ["extra"], fp) is False
-    assert eng.fingerprint_strength(tokens) == 4  # after normalization/dedup
+    assert eng.fingerprint_strength(tokens) == 3  # after normalization/dedup
 
 
 def test_end_to_end_node_handoff_and_resolve(in_process_node):

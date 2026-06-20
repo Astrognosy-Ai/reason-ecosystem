@@ -47,7 +47,8 @@ def ensure_schema(db_path: str) -> None:
     db_dir = os.path.dirname(db_path)
     if db_dir:
         os.makedirs(db_dir, exist_ok=True)
-    with sqlite3.connect(db_path) as conn:
+    conn = sqlite3.connect(db_path)
+    try:
         conn.execute(
             """
             CREATE TABLE IF NOT EXISTS warf_artifacts (
@@ -66,6 +67,8 @@ def ensure_schema(db_path: str) -> None:
             "CREATE INDEX IF NOT EXISTS idx_warf_domain_time ON warf_artifacts(domain, deposited_at DESC)"
         )
         conn.commit()
+    finally:
+        conn.close()
 
 
 def _hash_payload(payload: Dict[str, Any]) -> str:
@@ -224,7 +227,8 @@ class PrivateWARFRequestHandler(BaseHTTPRequestHandler):
         deposited_at = metadata["stored_at"]
         task_slug = reason_address.rsplit("/", 1)[-1]
 
-        with sqlite3.connect(self._db_path) as conn:
+        conn = sqlite3.connect(self._db_path)
+        try:
             conn.execute(
                 """
                 INSERT OR REPLACE INTO warf_artifacts
@@ -243,6 +247,8 @@ class PrivateWARFRequestHandler(BaseHTTPRequestHandler):
                 ),
             )
             conn.commit()
+        finally:
+            conn.close()
 
         self._send_json(
             HTTPStatus.OK,
@@ -256,7 +262,8 @@ class PrivateWARFRequestHandler(BaseHTTPRequestHandler):
         )
 
     def _fetch_rows(self, project: Optional[str], limit: int) -> List[sqlite3.Row]:
-        with sqlite3.connect(self._db_path) as conn:
+        conn = sqlite3.connect(self._db_path)
+        try:
             conn.row_factory = sqlite3.Row
             sql = "SELECT address, domain, deposited_at, metadata_json FROM warf_artifacts WHERE 1=1"
             params: List[Any] = []
@@ -266,6 +273,8 @@ class PrivateWARFRequestHandler(BaseHTTPRequestHandler):
             sql += " ORDER BY deposited_at DESC LIMIT ?"
             params.append(max(1, limit) * 5)
             return conn.execute(sql, params).fetchall()
+        finally:
+            conn.close()
 
     def _recall(self, query: str, project: Optional[str], limit: int) -> List[Dict[str, Any]]:
         needle = query.lower().strip()
@@ -307,7 +316,8 @@ class PrivateWARFRequestHandler(BaseHTTPRequestHandler):
         return results
 
     def _resolve(self, address: str) -> Optional[Dict[str, Any]]:
-        with sqlite3.connect(self._db_path) as conn:
+        conn = sqlite3.connect(self._db_path)
+        try:
             conn.row_factory = sqlite3.Row
             row = conn.execute(
                 "SELECT address, domain, deposited_at, metadata_json FROM warf_artifacts WHERE address = ?",
@@ -326,6 +336,8 @@ class PrivateWARFRequestHandler(BaseHTTPRequestHandler):
                 "meta": meta,
                 "source": "node",
             }
+        finally:
+            conn.close()
 
 
 def build_parser() -> argparse.ArgumentParser:

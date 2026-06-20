@@ -225,7 +225,8 @@ class RDNClient:
 
     def _ensure_local_schema(self) -> None:
         self.db_path.parent.mkdir(parents=True, exist_ok=True)
-        with sqlite3.connect(str(self.db_path)) as conn:
+        conn = sqlite3.connect(str(self.db_path))
+        try:
             conn.execute(
                 """
                 CREATE TABLE IF NOT EXISTS warf_artifacts (
@@ -244,6 +245,8 @@ class RDNClient:
                 "CREATE INDEX IF NOT EXISTS idx_warf_domain_time ON warf_artifacts(domain, deposited_at DESC)"
             )
             conn.commit()
+        finally:
+            conn.close()
 
     def _get_conn(self):
         return sqlite3.connect(str(self.db_path))
@@ -455,36 +458,38 @@ class RDNClient:
 
     def _list_prefix_local(self, prefix: str, limit: int) -> List[Dict[str, Any]]:
         results: List[Dict[str, Any]] = []
+        conn = self._get_conn()
         try:
-            with self._get_conn() as conn:
-                conn.row_factory = sqlite3.Row
-                sql = """
-                    SELECT address, domain, deposited_at, metadata_json 
-                    FROM warf_artifacts 
-                    WHERE address LIKE ? 
-                    ORDER BY deposited_at DESC 
-                    LIMIT ?
-                """
-                like = prefix + "%"
-                rows = conn.execute(sql, (like, limit * 2)).fetchall()
+            conn.row_factory = sqlite3.Row
+            sql = """
+                SELECT address, domain, deposited_at, metadata_json 
+                FROM warf_artifacts 
+                WHERE address LIKE ? 
+                ORDER BY deposited_at DESC 
+                LIMIT ?
+            """
+            like = prefix + "%"
+            rows = conn.execute(sql, (like, limit * 2)).fetchall()
 
-                for row in rows:
-                    try:
-                        meta = json.loads(row["metadata_json"])
-                    except Exception:
-                        meta = {}
-                    results.append({
-                        "address": row["address"],
-                        "project": row["domain"],
-                        "deposited_at": row["deposited_at"],
-                        "content": meta.get("content", ""),
-                        "tags": meta.get("tags", []),
-                        "structural_hash": meta.get("structural_hash") or meta.get("audit_hash"),
-                        "meta": meta,
-                        "source": "local",
-                    })
+            for row in rows:
+                try:
+                    meta = json.loads(row["metadata_json"])
+                except Exception:
+                    meta = {}
+                results.append({
+                    "address": row["address"],
+                    "project": row["domain"],
+                    "deposited_at": row["deposited_at"],
+                    "content": meta.get("content", ""),
+                    "tags": meta.get("tags", []),
+                    "structural_hash": meta.get("structural_hash") or meta.get("audit_hash"),
+                    "meta": meta,
+                    "source": "local",
+                })
         except Exception as e:
             logger.error("Local list_prefix failed: %s", e)
+        finally:
+            conn.close()
         return results[:limit]
 
     # ---------------- Core Operations ----------------
@@ -633,62 +638,64 @@ class RDNClient:
         results: List[Dict[str, Any]] = []
         needle = (query or "").lower().strip()
 
+        conn = self._get_conn()
         try:
-            with self._get_conn() as conn:
-                conn.row_factory = sqlite3.Row
-                sql = "SELECT address, domain, deposited_at, metadata_json FROM warf_artifacts WHERE 1=1"
-                params: List[Any] = []
+            conn.row_factory = sqlite3.Row
+            sql = "SELECT address, domain, deposited_at, metadata_json FROM warf_artifacts WHERE 1=1"
+            params: List[Any] = []
 
-                if project:
-                    sql += " AND domain = ?"
-                    params.append(project)
+            if project:
+                sql += " AND domain = ?"
+                params.append(project)
 
-                # We fetch a bit more then filter in Python for simplicity and correctness
-                sql += " ORDER BY deposited_at DESC LIMIT ?"
-                params.append(limit * 3)
+            # We fetch a bit more then filter in Python for simplicity and correctness
+            sql += " ORDER BY deposited_at DESC LIMIT ?"
+            params.append(limit * 3)
 
-                rows = conn.execute(sql, params).fetchall()
+            rows = conn.execute(sql, params).fetchall()
 
-                for row in rows:
-                    try:
-                        meta = json.loads(row["metadata_json"])
-                    except Exception:
+            for row in rows:
+                try:
+                    meta = json.loads(row["metadata_json"])
+                except Exception:
+                    continue
+
+                haystack = " ".join(
+                    [
+                        row["address"] or "",
+                        row["domain"] or "",
+                        row["deposited_at"] or "",
+                        json.dumps(meta, ensure_ascii=True),
+                    ]
+                ).lower()
+
+                if needle and needle not in haystack:
+                    continue
+
+                if tags:
+                    entry_tags = meta.get("tags", []) or []
+                    if not any(t in entry_tags for t in tags) and not any(
+                        t in (row["address"] or "") for t in tags
+                    ):
                         continue
 
-                    haystack = " ".join(
-                        [
-                            row["address"] or "",
-                            row["domain"] or "",
-                            row["deposited_at"] or "",
-                            json.dumps(meta, ensure_ascii=True),
-                        ]
-                    ).lower()
-
-                    if needle and needle not in haystack:
-                        continue
-
-                    if tags:
-                        entry_tags = meta.get("tags", []) or []
-                        if not any(t in entry_tags for t in tags) and not any(
-                            t in (row["address"] or "") for t in tags
-                        ):
-                            continue
-
-                    results.append(
-                        {
-                            "address": row["address"],
-                            "project": row["domain"],
-                            "deposited_at": row["deposited_at"],
-                            "content": meta.get("content", ""),
-                            "tags": meta.get("tags", []),
-                            "meta": meta,
-                            "source": "local",
-                        }
-                    )
-                    if len(results) >= limit:
-                        break
+                results.append(
+                    {
+                        "address": row["address"],
+                        "project": row["domain"],
+                        "deposited_at": row["deposited_at"],
+                        "content": meta.get("content", ""),
+                        "tags": meta.get("tags", []),
+                        "meta": meta,
+                        "source": "local",
+                    }
+                )
+                if len(results) >= limit:
+                    break
         except Exception as e:
             logger.error("Local recall failed: %s", e)
+        finally:
+            conn.close()
 
         return results
 
@@ -709,28 +716,30 @@ class RDNClient:
                     return art
 
         # Local
+        conn = self._get_conn()
         try:
-            with self._get_conn() as conn:
-                conn.row_factory = sqlite3.Row
-                row = conn.execute(
-                    "SELECT address, domain, deposited_at, metadata_json FROM warf_artifacts WHERE address = ?",
-                    (address,),
-                ).fetchone()
-                if not row:
-                    return None
-                meta = json.loads(row["metadata_json"])
-                return {
-                    "address": row["address"],
-                    "project": row["domain"],
-                    "deposited_at": row["deposited_at"],
-                    "content": meta.get("content", ""),
-                    "tags": meta.get("tags", []),
-                    "meta": meta,
-                    "source": "local",
-                }
+            conn.row_factory = sqlite3.Row
+            row = conn.execute(
+                "SELECT address, domain, deposited_at, metadata_json FROM warf_artifacts WHERE address = ?",
+                (address,),
+            ).fetchone()
+            if not row:
+                return None
+            meta = json.loads(row["metadata_json"])
+            return {
+                "address": row["address"],
+                "project": row["domain"],
+                "deposited_at": row["deposited_at"],
+                "content": meta.get("content", ""),
+                "tags": meta.get("tags", []),
+                "meta": meta,
+                "source": "local",
+            }
         except Exception as e:
             logger.error("Local resolve failed: %s", e)
             return None
+        finally:
+            conn.close()
 
     # ---------------- GUI / Advanced helpers (heartbeat, recent projects) ----------------
 
@@ -749,7 +758,8 @@ class RDNClient:
 
             if not entries:
                 # local fallback
-                with self._get_conn() as conn:
+                conn = self._get_conn()
+                try:
                     conn.row_factory = sqlite3.Row
                     sql = "SELECT deposited_at FROM warf_artifacts WHERE deposited_at > date('now', '-7 days')"
                     p = []
@@ -758,6 +768,8 @@ class RDNClient:
                         p.append(project)
                     rows = conn.execute(sql, p).fetchall()
                     entries = [{"deposited_at": r["deposited_at"]} for r in rows]
+                finally:
+                    conn.close()
 
             counts: Dict[str, int] = {}
             for e in entries:
@@ -803,12 +815,15 @@ class RDNClient:
                 if projects:
                     return projects
             # local
-            with self._get_conn() as conn:
+            conn = self._get_conn()
+            try:
                 rows = conn.execute(
                     "SELECT DISTINCT domain FROM warf_artifacts ORDER BY deposited_at DESC LIMIT ?",
                     (limit,),
                 ).fetchall()
                 return [r[0] for r in rows if r[0]]
+            finally:
+                conn.close()
         except Exception:
             return ["astrognosy"]
 

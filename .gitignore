@@ -165,3 +165,8 @@ reason-rdn/
 # Railway / secret notes if any local
 *.local
 # Keep the plan doc and source committed
+
+# Grok agent / dashboard outputs
+.understand-anything/
+mcps/
+terminals/
