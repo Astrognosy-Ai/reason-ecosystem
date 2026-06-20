@@ -62,7 +62,7 @@ No query or fragment components are required by this specification, but implemen
 
 ## Semantics
 
-A `reason://` URI names a **logical artifact** — the current best-known high-signal reasoning or handoff for the identified problem.
+A `reason://` URI names a **logical artifact**: the current best-known high-signal reasoning or handoff for the identified problem.
 
 Resolution of a `reason://` URI should return:
 - The primary content (reasoning, code sketch, decision record, etc.)

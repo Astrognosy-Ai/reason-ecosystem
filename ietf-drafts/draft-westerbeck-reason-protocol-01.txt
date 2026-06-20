@@ -3,7 +3,7 @@ Intended status: Informational                     J. Westerbeck
 Expires: 12 October 2026                           Astrognosy AI
                                                    12 April 2026
 
-         reason:// — A URI Scheme and Registry Protocol for
+         reason:// - A URI Scheme and Registry Protocol for
               Validated Agent Reasoning Artifacts
 
               draft-westerbeck-reason-protocol-01
@@ -18,8 +18,8 @@ Abstract
    Federation (WARF) protocol.  The artifact schema contains no raw
    data fields; the structural representation is mathematically non-
    invertible (empirical reconstruction rate r = 0.0149).  The
-   protocol is designed to function as open infrastructure — analogous
-   to DNS for network addresses or HTTP for document retrieval — for
+   protocol is designed to function as open infrastructure (analogous
+   to DNS for network addresses or HTTP for document retrieval) for
    the agentic internet.
 
 Status of This Memo
@@ -71,7 +71,7 @@ Table of Contents
        4.1.  Core Schema
        4.2.  Field Specifications
        4.3.  What the Schema Does Not Contain
-   5.  Registry Entry — The Arbitration Gate
+   5.  Registry Entry - The Arbitration Gate
        5.1.  The Gate
        5.2.  Arbitration Process
        5.3.  Score Immutability and Replacement
@@ -85,7 +85,7 @@ Table of Contents
        7.2.  Empirical Bound
        7.3.  Architectural Guarantee
    8.  Governance
-       8.1.  Bootstrap Phase (now — Q4 2026)
+       8.1.  Bootstrap Phase (now to Q4 2026)
        8.2.  Transition Phase (Q4 2026)
        8.3.  Community Phase (2027+)
    9.  Security Considerations
@@ -124,15 +124,15 @@ Table of Contents
 
    The protocol introduces three primitives:
 
-   1.  A naming standard — structured URIs for named reasoning
+   1.  A naming standard: structured URIs for named reasoning
        capabilities (e.g., reason://medicine/records/longitudinal-
        maintenance-prediction)
 
-   2.  A quality gate — only artifacts that have won a competitive
+   2.  A quality gate: only artifacts that have won a competitive
        WARF arbitration round may enter the registry; the registry
        is a hall of validated winners, not a submission box
 
-   3.  A resolution protocol — any agent resolves a named capability
+   3.  A resolution protocol: any agent resolves a named capability
        URI to receive the highest-scoring artifact currently registered
        under that name
 
@@ -273,7 +273,7 @@ Table of Contents
 
        {
          "uri": "reason://domain/category/task",
-         "pattern": [<list of floats — structural centroid>],
+         "pattern": [<list of floats: structural centroid>],
          "thresholds": {
            "high_confidence": <float>,
            "moderate_confidence": <float>,
@@ -335,7 +335,7 @@ Table of Contents
    This is an architectural guarantee, not a policy.
 
 
-5.  Registry Entry — The Arbitration Gate
+5.  Registry Entry - The Arbitration Gate
 
 5.1.  The Gate
 
@@ -425,7 +425,7 @@ Table of Contents
 
 7.1.  Structural Non-Invertibility
 
-   The artifact pattern field contains a structural centroid — the
+   The artifact pattern field contains a structural centroid: the
    mean of an agent's learned structural embedding vectors.  This
    representation is non-invertible by mathematical construction.
 
@@ -452,13 +452,13 @@ Table of Contents
 
    The schema has no field for raw data.  No conformant implementation
    can include raw data in an artifact.  The privacy guarantee is
-   structural — it is enforced by the protocol definition, not by
+   structural: it is enforced by the protocol definition, not by
    policy or trust assumptions.
 
 
 8.  Governance
 
-8.1.  Bootstrap Phase (now — Q4 2026)
+8.1.  Bootstrap Phase (now to Q4 2026)
 
    Registry operator: Astrognosy AI (Pacific Intelligence Concepts).
    Namespace minting: first-come, first-served via reason.register().

@@ -1,4 +1,4 @@
-# reason-rdn — reason:// The Shared Memory Substrate for the Agentic Era
+# reason-rdn: reason:// The Shared Memory Substrate for the Agentic Era
 
 **Local-first coherent memory with seamless participation in the global reason:// network.**
 
@@ -22,7 +22,7 @@ Every serious agentic workflow eventually hits the same wall: agents are statele
 - Later (same agent, different agent, next month) resolve it and pick up where the best prior reasoning left off.
 - Local by default. Federated when you want it. Public canonicals when the network promotes a winner.
 
-This package (`rdn`) is the **open, production-grade on-ramp** — the delightful local layer + bridge that makes participating in (and benefiting from) the larger reason:// ecosystem trivial and rewarding.
+This package (`rdn`) is the **open, production-grade on-ramp**, providing the delightful local layer + bridge that makes participating in (and benefiting from) the larger reason:// ecosystem trivial and rewarding.
 
 The advanced mathematics (Positional Correlation Fields / PCF) are calculated cleanly and securely under the hood, yielding safe, useful outputs.
 
@@ -77,15 +77,15 @@ Just say in your agent prompt: *"Use the reason-rdn MCP tools to remember and re
 
 ## Features
 
-- **Beautiful Streamlit harness dashboard** — metrics that actually mean something, tree-view prefix explorer, recent URIs with one-click copy, deposit forms with permanent `reason://` prefix, Xchange toggle.
-- **First-class CLI** (`rdn`) — remember, recall, resolve, list prefixes, status, xchange flows, start the harness.
-- **MCP server** — agents get `remember`, `resolve`, `status`, harness metrics, etc. out of the box.
-- **reason:// URIs + powerful browsing** — `list_prefix("reason://infra")` returns everything under it. The dashboard renders it as a beautiful collapsible tree.
-- **Real token accounting** — pass `tokens_used` on remember and `tokens_saved` on resolve. See your personal velocity and savings from network winners.
-- **Xchange mode** (opt-in) — high-signal artifacts you create can flow to the public broker, get scored by the protected engine, and (if they win) become the canonical for that `reason://` URI on the Xport registry.
-- **Local private node always works** — 8765 by default. Full offline capability + SQLite mirror. The dashboard lives at 8501.
-- **One coherent Python surface** — `import rdn as reason`. Everything important is available at the top level.
-- **Simplified Windows one-stop** — `package.py` produces `rdn.exe` + portable zip (CLI + local node + tray). The rich dashboard is the reliable pip path.
+- **Beautiful Streamlit harness dashboard**: metrics that actually mean something, tree-view prefix explorer, recent URIs with one-click copy, deposit forms with permanent `reason://` prefix, Xchange toggle.
+- **First-class CLI** (`rdn`): remember, recall, resolve, list prefixes, status, xchange flows, start the harness.
+- **MCP server**: agents get `remember`, `resolve`, `status`, harness metrics, etc. out of the box.
+- **reason:// URIs + powerful browsing**: `list_prefix("reason://infra")` returns everything under it. The dashboard renders it as a beautiful collapsible tree.
+- **Real token accounting**: pass `tokens_used` on remember and `tokens_saved` on resolve. See your personal velocity and savings from network winners.
+- **Xchange mode** (opt-in): high-signal artifacts you create can flow to the public broker, get scored by the protected engine, and (if they win) become the canonical for that `reason://` URI on the Xport registry.
+- **Local private node always works**: 8765 by default. Full offline capability + SQLite mirror. The dashboard lives at 8501.
+- **One coherent Python surface**: `import rdn as reason`. Everything important is available at the top level.
+- **Simplified Windows one-stop**: `package.py` produces `rdn.exe` + portable zip (CLI + local node + tray). The rich dashboard is the reliable pip path.
 
 ---
 
@@ -134,9 +134,9 @@ Examples:
 - `reason://infra/auth/race-detection`
 - `reason://research/positional-correlation`
 
-**Permanent prefix in the UI/CLI** — you never have to type `reason://` every time.
+**Permanent prefix in the UI/CLI**: you never have to type `reason://` every time.
 
-**Prefix browsing is first-class** — incomplete URIs bring back everything below them (both locally and from the network when Xchange is on). The dashboard shows a live tree with folders and copy buttons.
+**Prefix browsing is first-class**: incomplete URIs bring back everything below them (both locally and from the network when Xchange is on). The dashboard shows a live tree with folders and copy buttons.
 
 Once an artifact is promoted through Xchange + the quality gate, resolving the URI gives you the current best-known reasoning instead of forcing the agent to rediscover it.
 
@@ -199,8 +199,8 @@ rdn --xchange remember "..." --reason-address "reason://my-project/..."
 
 Key environment variables:
 
-- `REASON_USE_XCHANGE=1` — default to the public warf broker
-- `REASON_NODE_URL=...` — point at any node (local or remote)
+- `REASON_USE_XCHANGE=1`: default to the public warf broker
+- `REASON_NODE_URL=...`: point at any node (local or remote)
 - Token accounting is passed explicitly in the API (`tokens_used`, `tokens_saved`)
 
 All data lives under `~/.reason-rdn/`.
@@ -213,7 +213,7 @@ We believe `reason://` addressing + structured high-signal memory artifacts are 
 
 Exploratory draft work lives in the [`ietf-drafts/`](./ietf-drafts) directory:
 
-- `draft-reason-uri-00.md` — early skeleton for the URI scheme itself (syntax, semantics, resolution, security considerations, IANA registration path).
+- `draft-reason-uri-00.md`: early skeleton for the URI scheme itself (syntax, semantics, resolution, security considerations, IANA registration path).
 
 These are **not yet submitted** IETF drafts. They are public working notes so the direction is visible early and the community can help shape them.
 
@@ -225,7 +225,7 @@ If you're interested in URI schemes, provenance, or agent memory protocols, we w
 
 Inference should feel like resolution when the problem has been solved well before.
 
-`reason-rdn` + the reason:// network is how we get there — one high-quality, addressable artifact at a time.
+`reason-rdn` + the reason:// network is how we get there: one high-quality, addressable artifact at a time.
 
 Local-first and private by default.  
 Federated and public when you choose.  

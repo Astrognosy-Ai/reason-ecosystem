@@ -4,7 +4,7 @@ This directory shows how to use reason-ecosystem for local memory + seamless aut
 
 **Important architecture note** (from the real system):
 - Deposits with Xchange mode go to the Railway reference **broker** (warf.astrognosy.com).
-- The broker forwards actual scoring to **astragnostic-api** (AWS ECS) — the domain-agnostic PCF engine.
+- The broker forwards actual scoring to **astragnostic-api** (AWS ECS), the domain-agnostic PCF engine.
 - High-value results can be promoted to the reason:// **Xport** registry at reason.astrognosy.com.
 
 All examples keep the PCF math protected (only safe fingerprints + content are ever sent from here). The real engine lives in astragnostic-api.
