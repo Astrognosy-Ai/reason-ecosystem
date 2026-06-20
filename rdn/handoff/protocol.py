@@ -4,16 +4,13 @@ rdn/handoff/protocol.py
 High-level handoff orchestrator.
 
 This layer captures rich structural context from operators and agents,
-produces a stable integrity fingerprint using proprietary Positional
-Correlation Fields (PCF) mathematics (protected IP — see _pcf.py),
-and deposits the result via the unified memory client.
+produces a stable integrity fingerprint using Positional Correlation Fields (PCF)
+token hashes, and deposits the result via the unified memory client.
 
-Public consumers should only interact with:
+Public consumers interact with:
 - ReasonRDN.deposit_handoff(...)
 - ReasonRDN.resolve_handoff(...)
 - The "structural_hash" field present in returned artifacts
-
-The internal correlation mathematics are deliberately not exposed.
 """
 
 from __future__ import annotations
@@ -22,8 +19,7 @@ from typing import Dict, List, Optional
 
 from rdn.client import RDNClient
 
-# Import the proprietary PCF implementation privately.
-# This import path and the contents of _pcf.py are not part of the public API.
+# Import the PCF implementation.
 from . import _pcf as _pcf
 
 
@@ -32,10 +28,10 @@ class ReasonRDN:
     Orchestrates high-utility, privacy-preserving handoffs between agents,
     sessions, and the desktop operator.
 
-    Internally uses proprietary Positional Correlation Fields (PCF) to
+    Internally uses Positional Correlation Fields (PCF) to
     generate stable structural fingerprints. These fingerprints are stored
     as `structural_hash` on artifacts and can be used by consumers for
-    relevance verification without exposing the underlying math.
+    relevance verification.
     """
 
     def __init__(
@@ -62,7 +58,7 @@ class ReasonRDN:
         """
         Deposit a handoff artifact.
 
-        A proprietary structural fingerprint is computed from the provided
+        A stable structural fingerprint is computed from the provided
         state_tokens and stored under the `structural_hash` key in the
         artifact's metadata. This enables later consumers to assess relevance
         to their current context.
@@ -73,8 +69,7 @@ class ReasonRDN:
             "protocol": "ReasonRDN/v1",
             "structural_hash": fingerprint,
             "integrity": "verified",
-            # strength is a lightweight diagnostic only; the real power is in the
-            # protected correlation method that produced the hash.
+            # strength is a lightweight diagnostic indicating token cardinality.
             "fingerprint_strength": self._fingerprint_engine.fingerprint_strength(state_tokens),
         }
 

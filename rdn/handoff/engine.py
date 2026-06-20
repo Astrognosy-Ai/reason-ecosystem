@@ -3,14 +3,10 @@ rdn/handoff/engine.py
 
 DEPRECATED / INTERNAL ACCESS ONLY.
 
-The Positional Correlation Fields (PCF) implementation has been moved
-to the private module `rdn.handoff._pcf` for IP protection reasons.
+The PCF engine module has been consolidated into the internal module `rdn.handoff._pcf`.
 
-External code should never import from here.
-
-Use the high-level `ReasonRDN` class instead. It handles fingerprinting
-internally using protected mathematics and surfaces only `structural_hash`
-on artifacts.
+External code should never import from here. Use the high-level `ReasonRDN`
+class instead, which handles fingerprinting internally.
 """
 
 from __future__ import annotations
@@ -21,8 +17,7 @@ from . import _pcf as _pcf
 
 warnings.warn(
     "rdn.handoff.engine is deprecated and will be removed. "
-    "Do not rely on PCFEngine directly. Use ReasonRDN for handoffs. "
-    "The internal Positional Correlation Fields mathematics are proprietary.",
+    "Do not rely on PCFEngine directly. Use ReasonRDN for handoffs.",
     DeprecationWarning,
     stacklevel=2,
 )

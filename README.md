@@ -24,7 +24,7 @@ Every serious agentic workflow eventually hits the same wall: agents are statele
 
 This package (`rdn`) is the **open, production-grade on-ramp** — the delightful local layer + bridge that makes participating in (and benefiting from) the larger reason:// ecosystem trivial and rewarding.
 
-The advanced mathematics (Positional Correlation Fields / PCF and quality promotion) stay protected in the reference engine. You only ever see safe, useful outputs.
+The advanced mathematics (Positional Correlation Fields / PCF) are calculated cleanly and securely under the hood, yielding safe, useful outputs.
 
 ---
 
@@ -248,7 +248,53 @@ Visible economics so humans and agents actually use it.
 
 **License:** MIT (see `LICENSE`)
 
-This package is the open surface. The deeper non-invertible transfer protocols and full engine implementations live in the reference closed components.
+This package is fully open-source and provides all core tools, engines, clients, and dashboards required for local and federated use.
+
+## Repository Layout
+
+Here is the file structure of the repository and how they map to the system:
+
+```
+├── ietf-drafts/               # IETF RFC Drafts for the reason:// URI protocol
+│   ├── README.md              # Documentation for drafts
+│   ├── draft-reason-uri-00.md # Draft proposal for the reason:// URI scheme
+│   └── draft-westerbeck-reason-protocol-01.txt # Full protocol specification
+│
+├── rdn/                       # Core python package source code
+│   ├── __init__.py            # Top-level API exports (import rdn as reason)
+│   ├── cli.py                 # Command line interface commands (rdn recall/remember/resolve/start)
+│   ├── client.py              # Unified RDN client with local SQLite and remote Node fallback
+│   ├── reason.py              # Token accounting, statistics, and HarnessMetrics tracking
+│   ├── dash.py                # Streamlit web-dashboard implementation
+│   │
+│   ├── handoff/               # Handoff and structural fingerprint (PCF) logic
+│   │   ├── __init__.py
+│   │   ├── _pcf.py            # Positional Correlation Fields (PCF) fingerprint engine
+│   │   ├── engine.py          # Deprecation layer for old PCFEngine imports
+│   │   ├── protocol.py        # High-level orchestrator for agent handoff operations
+│   │   └── sync.py            # Codebase repository sync automation
+│   │
+│   ├── mcp/                   # Model Context Protocol (MCP) integrations
+│   │   ├── __init__.py
+│   │   └── server.py          # MCP server exposing memory tools to Grok, Claude, etc.
+│   │
+│   └── node/                  # Local embedded server implementations
+│       ├── __init__.py
+│       └── server.py          # Embedded private memory node (lightweight HTTP)
+│
+├── gui/                       # Desktop runtime graphical user interface
+│   └── app.py                 # CustomTkinter-based desktop controller dashboard
+│
+├── tests/                     # Unit testing suites
+│   └── test_coherent_memory.py # Coherent tests for memory client, server, and metrics
+│
+├── bootstrap.py               # Fast one-liner bootstrap installer
+├── install.py                 # Multi-platform unified CLI project setup installer
+├── package.py                 # PyInstaller packaging configuration script
+├── rdn_launcher.py            # Windows .exe system tray launcher wrapper
+├── pyproject.toml             # Python build, dependencies, and packaging metadata
+└── README.md                  # Project overview and specifications
+```
 
 ---
 

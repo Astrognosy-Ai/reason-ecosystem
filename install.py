@@ -4,15 +4,15 @@ install.py - Reason Ecosystem Unified Installer (coherent v2)
 
 One-command installer for the ReasonRDN shared memory substrate:
 
-- rdn core package (unified client, proprietary structural fingerprint handoffs,
+- rdn core package (unified client, structural fingerprint handoffs,
   embedded private node, first-class MCP tools)
 - Optional desktop GUI (ReasonRDN console)
 - Private node auto-start for local use
 - Git hook + repo-state sync automation
 - Automatic MCP registration for agents (Claude, Grok, Cursor, etc.)
 
-The Positional Correlation Fields (PCF) mathematics used for high-quality
-handoff fingerprints are proprietary and not exposed.
+The Positional Correlation Fields (PCF) algorithm is used to generate
+stable, high-quality handoff fingerprints.
 
 Usage (from the reason-ecosystem root):
   py -3.13 install.py
