@@ -1,4 +1,4 @@
-# reason-rdn: reason:// The Shared Memory Substrate for the Agentic Era
+# ReasonRDN: reason:// The Shared Memory Substrate for the Agentic Era
 
 **Local-first coherent memory with seamless participation in the global reason:// network.**
 
@@ -225,7 +225,7 @@ If you're interested in URI schemes, provenance, or agent memory protocols, we w
 
 Inference should feel like resolution when the problem has been solved well before.
 
-`reason-rdn` + the reason:// network is how we get there: one high-quality, addressable artifact at a time.
+`ReasonRDN` + the reason:// network is how we get there: one high-quality, addressable artifact at a time.
 
 Local-first and private by default.  
 Federated and public when you choose.  

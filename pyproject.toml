@@ -5,7 +5,7 @@ build-backend = "setuptools.build_meta"
 [project]
 name = "reason-rdn"
 version = "0.4.0"
-description = "ReasonRDN — the shared memory substrate for the agentic era. Local-first with seamless auto-deposit to the warf Xchange (https://warf.astrognosy.com). reason:// handoffs, protected structural fingerprints (PCF), unified client, embedded node, first-class MCP, and CLI."
+description = "ReasonRDN - the shared memory substrate for the agentic era. Local-first with seamless auto-deposit to the warf Xchange (https://warf.astrognosy.com). reason:// handoffs, protected structural fingerprints (PCF), unified client, embedded node, first-class MCP, and CLI."
 readme = "README.md"
 requires-python = ">=3.9"
 license = {text = "Apache-2.0"}
@@ -45,10 +45,10 @@ rdn-mcp = "rdn.mcp.server:main"
 rdn-dash = "rdn.dash:launch"
 
 [project.urls]
-Homepage = "https://github.com/Astrognosy/reason-ecosystem"
-Documentation = "https://github.com/Astrognosy/reason-ecosystem#readme"
-Repository = "https://github.com/Astrognosy/reason-ecosystem"
-Issues = "https://github.com/Astrognosy/reason-ecosystem/issues"
+Homepage = "https://github.com/Astrognosy-Ai/ReasonRDN"
+Documentation = "https://github.com/Astrognosy-Ai/ReasonRDN#readme"
+Repository = "https://github.com/Astrognosy-Ai/ReasonRDN"
+Issues = "https://github.com/Astrognosy-Ai/ReasonRDN/issues"
 
 [tool.setuptools.packages.find]
 where = ["."]

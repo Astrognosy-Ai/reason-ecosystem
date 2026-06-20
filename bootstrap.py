@@ -1,10 +1,10 @@
 #!/usr/bin/env python3
 """
-Tiny bootstrap for reason-rdn — the coherent agnostic harness.
+Tiny bootstrap for ReasonRDN - the coherent agnostic harness.
 
 Run this one-liner (no prior install needed):
 
-    python -c "$(curl -fsSL https://raw.githubusercontent.com/Astrognosy-Ai/reason-ecosystem/main/bootstrap.py)"
+    python -c "$(curl -fsSL https://raw.githubusercontent.com/Astrognosy-Ai/ReasonRDN/main/bootstrap.py)"
 
 Or save it and run:
     python bootstrap.py
@@ -49,7 +49,7 @@ The one-liner you (and your agents) will love:
     pip install 'reason-rdn[full]' && rdn start
 """)
 
-    # Minimal dependency bootstrap — install the full experience
+    # Minimal dependency bootstrap - install the full experience
     print("Installing reason-rdn[full] (this gives you the dash, MCP, and coherent API)...")
     try:
         subprocess.check_call([

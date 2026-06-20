@@ -5,8 +5,8 @@ Designed to be useful both for humans and for agents that can shell out.
 
 Examples:
     rdn remember "Fixed the critical race in the handoff protocol" --tags infra,bugfix
-    rdn recall "race condition" --project reason-ecosystem --limit 5
-    rdn resolve reason://reason-ecosystem/handoff/abc12345
+    rdn recall "race condition" --project ReasonRDN --limit 5
+    rdn resolve reason://ReasonRDN/handoff/abc12345
     rdn status
 """
 

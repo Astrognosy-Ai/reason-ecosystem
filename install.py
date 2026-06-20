@@ -14,7 +14,7 @@ One-command installer for the ReasonRDN shared memory substrate:
 The Positional Correlation Fields (PCF) algorithm is used to generate
 stable, high-quality handoff fingerprints.
 
-Usage (from the reason-ecosystem root):
+Usage (from the ReasonRDN root):
   py -3.13 install.py
   py -3.13 install.py --no-service          # skip windows integration
   py -3.13 install.py --agent-only          # just the memory + MCP bits
@@ -151,10 +151,10 @@ def register_mcp():
         copilot_config = HOME / ".copilot" / "mcp.yml"
         copilot_config.parent.mkdir(parents=True, exist_ok=True)
         content = copilot_config.read_text(encoding="utf-8") if copilot_config.exists() else ""
-        if "reason-ecosystem" not in content and "rdn-mcp" not in content:
+        if "ReasonRDN" not in content and "rdn-mcp" not in content:
             entry = f"""
-# ReasonRDN — shared memory substrate for agents (protected structural fingerprints)
-reason-ecosystem:
+# ReasonRDN - shared memory substrate for agents (protected structural fingerprints)
+ReasonRDN:
   command: python
   args: ["-m", "rdn.mcp.server"]
   env:
@@ -281,7 +281,7 @@ def main(argv=None):
         print(f"Node URL: {config['node_url']}")
         print(f"Local DB:   {config['memory_db']}")
         if "warf.astrognosy.com" in str(config.get("node_url", "")):
-            print("    (warf Xchange broker configured — deposits will be scored by astragnostic-api on AWS)")
+            print("    (warf Xchange broker configured - deposits will be scored by astragnostic-api on AWS)")
 
         print("\n" + "="*70)
         print("🚀 THE EASY 'START USING RDN' (HERO PATH - RELIABLE, CROSS-PLATFORM)")
@@ -340,18 +340,18 @@ See the full one-liner, ports (8765=node, 8501=dash), and EXE notes in README.md
         if "warf.astrognosy.com" in str(config.get("node_url", "")):
             print("\n  To also use the Xchange from agents: set REASON_USE_XCHANGE=1 or pass --xchange to tools.")
 
-        # Optional build — the modern one-stop .exe (CLI + badass harness dashboard)
+        # Optional build - the modern one-stop .exe (CLI + badass harness dashboard)
         if args.build:
             print("\n=== Building the one-stop rdn.exe (full coherent harness) ===")
             try:
                 run([sys.executable, "-m", "pip", "install", "pyinstaller", "--upgrade"],
                     cwd=ECOSYSTEM_ROOT, quiet=True)
                 # Use the new root package.py which builds rdn_launcher.py
-                # This produces dist/rdn.exe — the true one-stop experience
+                # This produces dist/rdn.exe - the true one-stop experience
                 run([sys.executable, "package.py"], cwd=ECOSYSTEM_ROOT)
                 print("\nOne-stop build complete!")
-                print("  dist/rdn.exe          — double-click for dashboard + metrics + system tray (auto node + MCP controls)")
-                print("  dist/rdn-portable.zip — convenient distribution package")
+                print("  dist/rdn.exe          - double-click for dashboard + metrics + system tray (auto node + MCP controls)")
+                print("  dist/rdn-portable.zip - convenient distribution package")
                 print("  From cmd: rdn.exe remember \"...\"   or   rdn.exe start")
             except Exception as e:
                 print(f"Build step failed (non-fatal for core): {e}")
@@ -373,7 +373,7 @@ See the full one-liner, ports (8765=node, 8501=dash), and EXE notes in README.md
                 print(f"  Windows integration helper: {e} (non-fatal)")
 
         print("\n" + "="*70)
-        print("🚀 START USING RDN — ONE LINER EDITION")
+        print("🚀 START USING RDN - ONE LINER EDITION")
         print("="*70)
         print("""
 The easiest way:

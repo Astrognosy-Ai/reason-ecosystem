@@ -59,7 +59,7 @@ class WARFMCPServer:
             raise RuntimeError(
                 "MCP support not installed. Install with: pip install 'reason-rdn[mcp]' or 'reason-rdn[full]'"
             )
-        self.server = Server("reason-ecosystem")
+        self.server = Server("ReasonRDN")
         self.memory = RDNClient()  # honors REASON_USE_XCHANGE, config, local port, etc.
         self._register_tools()
 

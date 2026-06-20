@@ -71,20 +71,20 @@ def test_end_to_end_node_handoff_and_resolve(in_process_node):
 
     # High-level deposit (PCF + client -> HTTP node)
     rdn = ReasonRDN(node_url=node_url)
-    tokens = ["repo:reason-ecosystem", "branch:coherent", "touched:rdn/client.py", "infra-fix"]
+    tokens = ["repo:ReasonRDN", "branch:coherent", "touched:rdn/client.py", "infra-fix"]
     res = rdn.deposit_handoff(
-        project="reason-ecosystem",
+        project="ReasonRDN",
         summary="Made the memory system actually coherent and novel (unified client + real PCF).",
         state_tokens=tokens,
         tags=["infra", "pcf", "coherent"]
     )
     assert res["status"] == "remembered"
     addr = res["address"]
-    assert addr.startswith("reason://reason-ecosystem/handoff/")
+    assert addr.startswith("reason://ReasonRDN/handoff/")
 
     # Unified client recall (node path)
     c = RDNClient(node_url=node_url)
-    results = c.recall(query="coherent", project="reason-ecosystem", limit=10)
+    results = c.recall(query="coherent", project="ReasonRDN", limit=10)
     assert len(results) >= 1
     assert "coherent" in results[0]["content"].lower()
     assert results[0]["source"] == "node"
@@ -106,11 +106,11 @@ def test_local_fallback_when_no_node():
     c.available = False
     c.node_url = None
 
-    res = c.remember("Pure local path still works", tags=["fallback-test"], project="reason-ecosystem")
+    res = c.remember("Pure local path still works", tags=["fallback-test"], project="ReasonRDN")
     assert res["status"] == "remembered"
     assert res["source"] == "local"
 
-    rec = c.recall(query="local path", project="reason-ecosystem", limit=5)
+    rec = c.recall(query="local path", project="ReasonRDN", limit=5)
     assert len(rec) >= 1
     assert "fallback" in rec[0].get("content", "").lower() or "local" in rec[0].get("content", "").lower()
 
@@ -154,7 +154,7 @@ def test_harness_metrics_record_functions(tmp_path, monkeypatch):
     # Record a recall with saved tokens (simulating benefit from a promoted
     # external winner on reason://)
     reason_mod.record_recall(
-        "reason://reason-ecosystem/handoff/abc12345",
+        "reason://ReasonRDN/handoff/abc12345",
         tokens_saved=920,
     )
     m2 = reason_mod.harness_metrics()

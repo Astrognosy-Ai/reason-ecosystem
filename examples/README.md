@@ -1,6 +1,6 @@
 # ReasonRDN + warf Xchange Examples
 
-This directory shows how to use reason-ecosystem for local memory + seamless auto-deposit to the full stack.
+This directory shows how to use ReasonRDN for local memory + seamless auto-deposit to the full stack.
 
 **Important architecture note** (from the real system):
 - Deposits with Xchange mode go to the Railway reference **broker** (warf.astrognosy.com).
@@ -11,7 +11,7 @@ All examples keep the PCF math protected (only safe fingerprints + content are e
 
 ## Quick Agent Prompts (copy-paste these to any coding assistant)
 
-"Install and configure reason-ecosystem with auto-deposit to the warf Xchange so my reasoning artifacts are available ecosystem-wide."
+"Install and configure ReasonRDN with auto-deposit to the warf Xchange so my reasoning artifacts are available ecosystem-wide."
 
 "Use the rdn CLI or MCP tools to remember this solution under reason://ops/deployment/ecs-task-failures and share it to the Xchange."
 

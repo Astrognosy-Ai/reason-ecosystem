@@ -367,7 +367,7 @@ class RDNClient:
         if uri:
             meta["reason_uri"] = uri
         meta.setdefault("xchange_share", True)
-        meta.setdefault("submitted_via", "reason-ecosystem")
+        meta.setdefault("submitted_via", "ReasonRDN")
 
         return self.remember(
             content=content,
