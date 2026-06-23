@@ -1,0 +1,68 @@
+[build-system]
+requires = ["setuptools>=68", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "reason-rdn"
+version = "0.4.0"
+description = "ReasonRDN - the shared memory substrate for the agentic era. Local-first with optional auto-deposit to the warf Xchange broker, reason:// handoffs, unified client, embedded node, first-class MCP, and CLI."
+readme = "README.md"
+requires-python = ">=3.9"
+license = {text = "Apache-2.0"}
+authors = [
+  {name = "Astrognosy", email = "info@astrognosy.com"}
+]
+keywords = ["memory", "agent", "mcp", "warf", "reason", "handoff", "xchange", "shared-context", "ai-agents"]
+classifiers = [
+  "Development Status :: 4 - Beta",
+  "Intended Audience :: Developers",
+  "License :: OSI Approved :: Apache Software License",
+  "Programming Language :: Python :: 3",
+  "Programming Language :: Python :: 3.9",
+  "Programming Language :: Python :: 3.10",
+  "Programming Language :: Python :: 3.11",
+  "Programming Language :: Python :: 3.12",
+  "Programming Language :: Python :: 3.13",
+  "Topic :: Software Development :: Libraries :: Python Modules",
+  "Topic :: Scientific/Engineering :: Artificial Intelligence",
+  "Operating System :: OS Independent",
+]
+dependencies = [
+  "requests>=2.25.0",
+]
+[project.optional-dependencies]
+gui = ["customtkinter>=5.2.0"]
+mcp = ["mcp>=1.0.0"]
+dash = ["streamlit>=1.30.0", "plotly>=5.0.0"]
+full = ["customtkinter>=5.2.0", "mcp>=1.0.0", "streamlit>=1.30.0", "plotly>=5.0.0"]
+dev = ["pytest", "pyinstaller", "httpx", "black", "ruff"]
+
+[project.scripts]
+rdn = "rdn.cli:main"
+rdn-sync = "rdn.handoff.sync:main"
+rdn-node = "rdn.node.server:main"
+rdn-mcp = "rdn.mcp.server:main"
+rdn-dash = "rdn.dash:launch"
+
+[project.urls]
+Homepage = "https://github.com/Astrognosy-Ai/ReasonRDN"
+Documentation = "https://github.com/Astrognosy-Ai/ReasonRDN#readme"
+Repository = "https://github.com/Astrognosy-Ai/ReasonRDN"
+Issues = "https://github.com/Astrognosy-Ai/ReasonRDN/issues"
+
+[tool.setuptools.packages.find]
+where = ["."]
+include = ["rdn*"]
+exclude = ["legacy-operator*", "tests*"]
+
+[tool.setuptools.package-data]
+rdn = ["*.md"]
+
+[tool.ruff]
+line-length = 100
+target-version = "py39"
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+python_files = ["test_*.py"]
+addopts = "-q --tb=short"

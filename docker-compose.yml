@@ -1,0 +1,21 @@
+version: '3.8'
+
+services:
+  reasonrdn:
+    build: .
+    container_name: reasonrdn
+    ports:
+      - "8501:8501" # Streamlit Dashboard
+      - "8765:8765" # Memory Node API
+    volumes:
+      # Persistent storage for memory database, indexes, and metrics
+      - reasonrdn_data:/root/.reason-rdn
+      # Persistent config file
+      - reasonrdn_config:/root/.reason-ecosystem.cfg
+    environment:
+      - REASON_USE_XCHANGE=1  # Enable Xchange by default inside container
+    restart: unless-stopped
+
+volumes:
+  reasonrdn_data:
+  reasonrdn_config:
