@@ -204,7 +204,6 @@ def _app():
 
         # Use module-level recent URIs for cross-session persistence
         try:
-            import rdn as reason
             recent_uris = reason.get_recent_uris()
         except Exception:
             recent_uris = []
@@ -281,7 +280,6 @@ def _app():
                                                 if st.button("📋", key=f"use_{addr}", help="Load this URI"):
                                                     st.session_state.explorer_prefix = addr.replace("reason://", "")
                                                     try:
-                                                        import rdn as reason
                                                         reason.add_recent_uri(addr)
                                                     except Exception:
                                                         pass
@@ -295,7 +293,6 @@ def _app():
 
         # Recent URIs (persisted via reason module for cross-session)
         try:
-            import rdn as reason
             recent_uris = reason.get_recent_uris()
         except Exception:
             recent_uris = []
@@ -307,7 +304,6 @@ def _app():
                     if st.button(rec.replace("reason://", ""), key=f"recent_{i}"):
                         st.session_state.explorer_prefix = rec.replace("reason://", "")
                         try:
-                            import rdn as reason
                             reason.add_recent_uri(rec)
                         except Exception:
                             pass
@@ -338,7 +334,7 @@ def _app():
             st.info("No recent handoffs yet. Deposit something above.")
 
     with tab2:
-    st.caption("Visualizations of local artifact hashes")
+        st.caption("Visualizations of local artifact hashes")
         # Demo gallery
         demo_hashes = [
             hashlib.sha256(b"demo1").hexdigest(),
